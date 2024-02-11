@@ -1,0 +1,24 @@
+name: Main Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+      
+      - name: Run Tests
+        run: pytest
+      
+      - name: Build and Deploy
+        run: ./deploy.sh
+        if: success()
